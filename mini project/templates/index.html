@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-wallet"></i> Personal Expense Tracker</h1>
+        <p>Track your expenses easily and manage your budget effectively</p>
+        
+        <div id="message"></div>
+        
+        <!-- Summary Cards -->
+        <section class="summary-section">
+            <div class="summary-card">
+                <div class="card-icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Expenses</h3>
+                    <p id="total-expenses">₹0.00</p>
+                </div>
+            </div>
+            
+            <div class="summary-card">
+                <div class="card-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>This Month</h3>
+                    <p id="monthly-expenses">₹0.00</p>
+                </div>
+            </div>
+            
+            <div class="summary-card">
+                <div class="card-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Categories</h3>
+                    <p id="total-categories">0</p>
+                </div>
+            </div>
+            
+            <div class="summary-card">
+                <div class="card-icon">
+                    <i class="fas fa-receipt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Transactions</h3>
+                    <p id="total-transactions">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column - Form -->
+            <div class="left-column">
+                <!-- Add Expense Form -->
+                <div class="card">
+                    <h2><i class="fas fa-plus-circle"></i> Add New Expense</h2>
+                    <form id="expense-form">
+                        <div class="form-group">
+                            <label for="date"><i class="fas fa-calendar-day"></i> Date:</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category"><i class="fas fa-list"></i> Category:</label>
+                            <select id="category" required>
+                                <option value="">Select Category</option>
+                                <option value="Food">Food</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="amount"><i class="fas fa-rupee-sign"></i> Amount (₹):</label>
+                            <input type="number" id="amount" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes"><i class="fas fa-sticky-note"></i> Notes:</label>
+                            <textarea id="notes" placeholder="Additional details (optional)"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Add Expense
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Right Column - Charts and Expenses -->
+            <div class="right-column">
+                <!-- Charts -->
+                <div class="card">
+                    <h2><i class="fas fa-chart-pie"></i> Expense Distribution</h2>
+                    <div class="chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Expenses List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-list"></i> All Expenses</h2>
+                        <button id="refresh-btn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="expenses-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Notes</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expenses-body">
+                                <!-- Expenses will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
